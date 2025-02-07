@@ -100,12 +100,12 @@ Kanseaveg's Domain</title>
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://raw.githubusercontent.com/euanpic8888/images/main/20250207002336259.jpg"></li>
-          <li class="item" data-background-image="https://raw.githubusercontent.com/euanpic8888/images/main/20250207002941020.jpg"></li>
-          <li class="item" data-background-image="https://raw.githubusercontent.com/euanpic8888/images/main/20250207002731638.jpg"></li>
           <li class="item" data-background-image="https://raw.githubusercontent.com/euanpic8888/images/main/20250207003108509.jpg"></li>
-          <li class="item" data-background-image="https://raw.githubusercontent.com/euanpic8888/images/main/20250207002406106.jpg"></li>
-          <li class="item" data-background-image="https://raw.githubusercontent.com/euanpic8888/images/main/20250207002833537.jpg"></li>
+          <li class="item" data-background-image="https://raw.githubusercontent.com/euanpic8888/images/main/20250207002121564.jpg"></li>
+          <li class="item" data-background-image="https://raw.githubusercontent.com/euanpic8888/images/main/20250207002824229.jpg"></li>
+          <li class="item" data-background-image="https://raw.githubusercontent.com/euanpic8888/images/main/20250207002915799.jpg"></li>
+          <li class="item" data-background-image="https://raw.githubusercontent.com/euanpic8888/images/main/20250207002211634.jpg"></li>
+          <li class="item" data-background-image="https://raw.githubusercontent.com/euanpic8888/images/main/20250207002754014.jpg"></li>
         </ul>
       </div>
     </header>
@@ -211,45 +211,81 @@ d. 并接收来自 broker 的应答，应答 ack=0 表示接收到数据不等�
 </ol>
 <h2 id="生产者发送时的分区策略"><a class="markdownIt-Anchor" href="#生产者发送时的分区策略">#</a> 生产者发送时的分区策略</h2>
 <p><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207094842.png" alt="20250207094842"><br>
- 默认采用 DefaultPartitione：  实现 Partitioner 接口</p>
+ 默认采用 DefaultPartitioner：  实现 Partitioner 接口</p>
 <ol>
-<li>指明了 partition，则使用指明的值</li>
-<li>未指明 partition，则使用 key 的 hash% 分区数</li>
-<li>未指明 partition 和 key，则使用粘性分区，随机选定一个一直用直到满</li>
+<li>指明了 partition，则使用指明值</li>
+<li>未指明 partition，则使用 key 的 hash% 分区值</li>
+<li>未指明 partition 和 key，则使用粘性分区（随机选定一个分区一直用直到满）</li>
 </ol>
 <p>自定义分区，实现 Partitioner 接口</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyPartitioner</span> <span class="keyword">implements</span> <span class="title class_">Partitioner</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">partition</span><span class="params">(...)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">msgValue</span> <span class="operator">=</span> value.toString();</span><br><span class="line">        <span class="type">int</span> partition;</span><br><span class="line">        <span class="keyword">if</span> (msgValue.contains(<span class="string">&quot;atguigu&quot;</span>)) partition = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">else</span> partition = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span> partition;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="生产者发送吞吐量提升方法"><a class="markdownIt-Anchor" href="#生产者发送吞吐量提升方法">#</a> 生产者发送吞吐量提升方法</h2>
-<p>即 NetworkClient 从双端队列中拉取的吞吐量，如何提升？</p>
+<p>即 NetworkClient 从双端队列中拉取消息的吞吐量，如何提升？</p>
 <ol>
 <li>提高拉取批次大小 batch.size</li>
 <li>修改等待时间 <span class="exturl" data-url="aHR0cDovL2xpbmdlci5tcw==">linger.ms</span></li>
 <li>修改数据压缩算法 snappy</li>
 <li>修改缓存区大小 recordaccumulator</li>
 </ol>
-<h2 id="生产者如何保证数据可靠性"><a class="markdownIt-Anchor" href="#生产者如何保证数据可靠性">#</a> 生产者如何保证数据可靠性</h2>
+<h2 id="生产者如何保证数据可靠性ack应答级别"><a class="markdownIt-Anchor" href="#生产者如何保证数据可靠性ack应答级别">#</a> 生产者如何保证数据可靠性（ACK 应答级别）</h2>
 <p><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207094948.png" alt="20250207094948"></p>
+<p>producer 向集群发送数据，有三种 ack 级别：</p>
 <ol>
-<li>对于 ack=0，leader 不等待马上应答，producer 向 leader 发送数据，若 leader 突然挂了，followers 都拷贝不到数据，存在丢数风险</li>
-<li>对于 ack=1，leader 收到数据后应答，producer 向 leader 发送数据，若 leader 突然挂了，followers 依旧无法拷贝到数据，存在丢数风险</li>
-<li>对于 ack=-1，leader 和 isr 的 followers 们都收到数据后应答，此时因为 follower 也有数据不怕 leader 挂掉，但是有个问题：如果此时其中一个 follower 挂掉，leader 无法向发送方发送全部收到的 ack 怎么办？因此，kafka 设计了一个动态的 ISR（in-sync replica set），用来动态维护同步的 foller+leader 集合（leader: 0, isr: 0,1,2），若一个 follower 长时间未与 leader 通信，则被踢出这个 ISR 列表，默认 30s，而 ack=-1 负责与 ISR 列表中的节点进行应答确认。这样做仍存在风险，当 ISR 中所有的 follower 挂了，这样就退化成 ack=1 了？因此，数据完全可靠条件 = ACK 级别设置成 - 1 + 分区副本大于等于 2 + ISR 里最小副本数量大于等于 2。这样做仍存在风险，当 ISR 中所有的副本都收到了数据，此时 leader 要发送 ack 之前突然间就挂了，那么 Producer 会再发送同样的数据到新选出 leader，相当于又向 ISR 发了一次，此时如何处理重复数据？</li>
+<li>对于 ack=0，leader 不等待马上应答，若 leader 突然挂了，followers 都拷贝不到数据，存在丢数风险</li>
+<li>对于 ack=1，leader 收到数据后应答，若 leader 突然挂了，followers 依旧无法拷贝到数据，存在丢数风险</li>
+<li>对于 ack=-1，leader 和 followers 们收到数据后应答，leader 和 followers 都有数据，若此时一个 follower 突然挂了，leader 无法向发送方发送全部收到的 ack，因此：<br>
+a. kafka 设计了一个动态的 ISR（in-sync replica set），用来动态维护同步的 foller+leader 集合（isr: 0,1,2; leader: 0），ack=-1 负责与 ISR 列表中的节点进行应答确认<br>
+ b. isr 中若一个 follower 长时间未与 leader 通信，则被踢出这个 ISR 列表，默认 30s<br>
+c. isr 中若所有的 follower 都挂了，则退化成 ack=1，又存在丢数风险<br>
+ d. 因此，数据完全可靠条件 = ack=-1 + 分区副本数 &gt;=2 + ISR 里最小副本数 &gt;=2
+<blockquote>
+<p>分区副本数 &gt;=2：即 isr 中至少存在一个 leader 副本和 follower 副本<br>
+ ISR 里最小副本数 &gt;=2: 亦如此，此条件用于约束 follower 也在 isr 中<br>
+若在发送确认 ack 之前，leader 突然挂了，则需要重新选举 leader，此时新选举的 leader 应该如何处理重复数据？</p>
+</blockquote>
+</li>
 </ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设置 acks</span></span><br><span class="line">properties.put(ProducerConfig.ACKS_CONFIG, <span class="string">&quot;all&quot;</span>);</span><br><span class="line"><span class="comment">// 重试次数 retries，默认是 int 最大值，2147483647</span></span><br><span class="line">properties.put(ProducerConfig.RETRIES_CONFIG, <span class="number">3</span>);</span><br></pre></td></tr></table></figure>
 <h2 id="生产者如何保证数据去重"><a class="markdownIt-Anchor" href="#生产者如何保证数据去重">#</a> 生产者如何保证数据去重</h2>
-<h3 id="数据幂等"><a class="markdownIt-Anchor" href="#数据幂等">#</a> 数据幂等</h3>
+<h3 id="数据幂等性"><a class="markdownIt-Anchor" href="#数据幂等性">#</a> 数据幂等性</h3>
 <p>数据传递语义<br>
-● 至少一次：ack=-1 + 分区副本大于等于 2 + ISR 应答最小副本数大于等于 2<br>
-○ =&gt; 可保证数据不丢，但是会重复<br>
-● 最多一次：ack=0<br>
-○ =&gt; 不会重复，但是会丢数据<br>
-● 精确一次，幂等性 + 至少一次<br>
-○ =&gt; 引入幂等性和事务，保证数据不丢也不重复<br>
-○ =&gt; 无论接受到多少重复数据，broker 只持久化一条<br>
-○ =&gt; 重复数据判断标准：key 值 &lt;ProducerId, Partition, SeqNumber&gt;<br>
-○ =&gt; 只能保证单分区单会话内不重复（单会话，kafka 挂掉再开属于第二个会话，ProducerId 每次集群重启都会变）<br>
-○ =&gt; 幂等性默认开启，enable.idempotence = true</p>
+● 至少一次：ack=-1 + 分区副本数 &gt;=2 + ISR 应答最小副本数 &gt;=2   =&gt; 会重复，但保证数据不丢<br>
+● 最多一次：ack=0                                         =&gt; 不会重复，但会丢数据<br>
+● 精确一次：ack=-1 + 幂等性                               =&gt; 引入幂等性和事务，从而保证数据不丢也不重复<br>
+○ 即无论接受到多少重复数据，broker 只持久化一条，根据 key 值 &lt;ProducerId, Partition, SeqNumber&gt; 判断是否重复，且只能保证单分区单会话内不重复，默认开启幂等性</p>
 <h3 id="生产者事务"><a class="markdownIt-Anchor" href="#生产者事务">#</a> 生产者事务</h3>
-<p><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207095132.png" alt="20250207095132"></p>
+<p>由于幂等性只能保证单分区单会话内不重复，因此需要引入事务，从而保证跨分区跨会话不重复，只能使用事务确保</p>
+<p><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207145445.png" alt="20250207145445"></p>
+<ol>
+<li>每个 broker 上都有  事务协调器， 事务信息特殊主题，  消息主题 topic</li>
+<li>在使用事务前，<span class="exturl" data-url="aHR0cDovL3huLS1Qcm9kdWNlcnRyYW5zYWN0aW9uLW42NzNhaHpwdGk1NmN4bjJkeWY2bS5pZA==">Producer 先自定义一个 transaction.id</span></li>
+<li>事务划分根据 transaction.id 的 hashcode%50 计算出事务使用哪儿个分区，对应分区的 leader 副本所在的 broker 的事务协调器就是此次事务的话事人</li>
+<li>提交事务时，producer 向协调器请求 ProducerId，并将数据发送到 topic 中，并向协调器发送 commit 请求</li>
+<li>commit 请求的消息会持久化到事务信息特殊主题中，成功之后会给 topic 发送 commit 请求，判断数据真正写入到 topic 中</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 3. 创建 Kafka 生产者（配置事务支持所需的属性）</span></span><br><span class="line">  KafkaProducer&lt;String, String&gt; kafkaProducer = <span class="keyword">new</span> <span class="title class_">KafkaProducer</span>&lt;&gt;(properties);</span><br><span class="line">  properties.put(ProducerConfig.TRANSACTIONAL_ID_CONFIG, <span class="string">&quot;transaction_id_0&quot;</span>); <span class="comment">// 设置事务 id（必须），事务 id 任意起名</span></span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">      kafkaProducer.initTransactions(); <span class="comment">// 初始化事务（必须先于任何事务操作调用）</span></span><br><span class="line">      kafkaProducer.beginTransaction();  <span class="comment">// 开启一个新事务</span></span><br><span class="line">      <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123; <span class="comment">// 4. 批量发送消息（在事务中）</span></span><br><span class="line">          <span class="comment">// 构建消息记录（主题，消息内容）</span></span><br><span class="line">          ProducerRecord&lt;String, String&gt; record = <span class="keyword">new</span> <span class="title class_">ProducerRecord</span>&lt;&gt;(<span class="string">&quot;first&quot;</span>, <span class="string">&quot;atguigu &quot;</span> + i);</span><br><span class="line">          kafkaProducer.send(record);   <span class="comment">// 异步发送消息（可添加回调函数处理发送结果）</span></span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">// int i = 1 / 0;  // 模拟异常（测试事务回滚时可取消注释）</span></span><br><span class="line">      kafkaProducer.commitTransaction(); <span class="comment">// 提交事务（只有当所有消息成功发送时才会执行）</span></span><br><span class="line">  &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">      kafkaProducer.abortTransaction();</span><br><span class="line">      System.err.println(<span class="string">&quot;Transaction aborted: &quot;</span> + e.getMessage());    <span class="comment">// 发生异常时终止事务（自动回滚未提交的消息）</span></span><br><span class="line">  &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">      kafkaProducer.close();    <span class="comment">// 5. 确保最终关闭生产者（会等待所有未完成操作完成）</span></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<h1 id="kafka-broker"><a class="markdownIt-Anchor" href="#kafka-broker">#</a> kafka broker</h1>
+<p>在 kafka 中如何存储数据的，以及如何和 zk 沟通的</p>
+<h2 id="zk中存储的kafka信息"><a class="markdownIt-Anchor" href="#zk中存储的kafka信息">#</a> zk 中存储的 kafka 信息</h2>
+<p><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207162920.png" alt="20250207162920"></p>
+<ol>
+<li>broker_ids [0,1,2] 有哪儿些服务器</li>
+<li>leader_id  {“leader”:1,“isr”:[0,1,2]} 谁是 leader</li>
+<li>controller {“候选 leader”: 0} 在 leader 挂了之后，成为接任 leader 候选之一</li>
+</ol>
+<h2 id="broker与zk协调的总体工作流程"><a class="markdownIt-Anchor" href="#broker与zk协调的总体工作流程">#</a> broker 与 zk 协调的总体工作流程</h2>
+<p><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207163609.png" alt="20250207163609"></p>
+<ol>
+<li>三个节点向 zk 注册</li>
+<li>哪儿台 broker 的 controller 先向 zk 注册，哪儿台 broker 的 controller 说了算</li>
+<li>controller 按照选举规则选举出 leader，并将信息同步到 zk 中</li>
+<li>其他节点的 controller 从 zk 同步相关信息</li>
+<li>假设选举出来的 leader 挂了，zk 的 controller 会监听到变化，执行重新选举流程</li>
+</ol>
+<h2 id="broker服役与退役"><a class="markdownIt-Anchor" href="#broker服役与退役">#</a> broker 服役与退役</h2>
+<p>其实服役与退役的本质就是副本的迁移，若服役则将已有副本迁移到新节点，若退役则将已有副本迁移到其他节点</p>
+<p><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207164554.png" alt="20250207164554"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">服役 hadoop105</span></span><br><span class="line">bin/kafka-server-start.sh -daemon ./config/server.properties # hadoop105</span><br><span class="line"></span><br><span class="line">vim topics-to-move.json   # hadoop102</span><br><span class="line">&#123;&quot;topics&quot;: [&#123;&quot;topic&quot;: &quot;first&quot;&#125;]&#125;</span><br><span class="line"></span><br><span class="line">bin/kafka-reassign-partitions.sh --bootstrap-server hadoop102:9092 --topics-to-move-json-file topics-to-move.json --broker-list &quot;0,1,2,3&quot; --generate # hadoop102</span><br><span class="line"></span><br><span class="line">vim increase-replication-factor.json # hadoop102,将上面返回的json内容Proposed partition reassignment configuration填入</span><br><span class="line">&#123;&quot;version&quot;:1,&quot;partitions&quot;:[&#123;&quot;topic&quot;:&quot;first&quot;,&quot;partition&quot;:0,&quot;replic</span><br><span class="line">as&quot;:[2,3,0],&quot;log_dirs&quot;:[&quot;any&quot;,&quot;any&quot;,&quot;any&quot;]&#125;,&#123;&quot;topic&quot;:&quot;first&quot;,&quot;par</span><br><span class="line">tition&quot;:1,&quot;replicas&quot;:[3,0,1],&quot;log_dirs&quot;:[&quot;any&quot;,&quot;any&quot;,&quot;any&quot;]&#125;,&#123;&quot;to</span><br><span class="line">pic&quot;:&quot;first&quot;,&quot;partition&quot;:2,&quot;replicas&quot;:[0,1,2],&quot;log_dirs&quot;:[&quot;any&quot;,&quot;</span><br><span class="line">any&quot;,&quot;any&quot;]&#125;]&#125;</span><br><span class="line"></span><br><span class="line">bin/kafka-reassign-partitions.sh --reassignment-json-file increase-replication-factor.json --execute # hadoop102，执行迁移</span><br><span class="line"></span><br><span class="line">bin/kafka-reassign-partitions.sh --bootstrap-server hadoop102:9092 --reassignment-json-file increase-replication-factor.json --execute # hadoop102，验证</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">退役 hadoop105</span></span><br><span class="line">vim topics-to-move.json # hadoop105</span><br><span class="line">&#123;&quot;topics&quot;: [&#123;&quot;topic&quot;: &quot;first&quot;&#125;], &quot;version&quot;: 1&#125;</span><br><span class="line"></span><br><span class="line">bin/kafka-reassign-partitions.sh --bootstrap-server hadoop102:9092 --topics-to-move-json-file topics-to-move.json --broker-list &quot;0,1,2&quot; --generate # hadoop102</span><br><span class="line"></span><br><span class="line">vim increase-replication-factor.json # hadoop102,同上，将返回的json内容填入</span><br><span class="line"></span><br><span class="line">bin/kafka-reassign-partitions.sh --bootstrap-server hadoop102:9092 --reassignment-json-file increase-replication-factor.json --execute # hadoop102，执行迁移</span><br><span class="line"></span><br><span class="line">bin/kafka-reassign-partitions.sh --bootstrap-server hadoop102:9092 --reassignment-json-file increase-replication-factor.json --verify # hadoop102，验证</span><br><span class="line"></span><br><span class="line">bin/kafka-server-stop.sh # hadoop105，退役</span><br></pre></td></tr></table></figure>
 
   </div>
 
@@ -261,7 +297,7 @@ d. 并接收来自 broker 的应答，应答 ack=0 表示接收到数据不等�
       <i class="ic i-calendar-check"></i>
     </span>
     <span class="text">更新于</span>
-    <time title="修改时间：2025-02-07 09:51:35" itemprop="dateModified" datetime="2025-02-07T09:51:35+08:00">2025-02-07</time>
+    <time title="修改时间：2025-02-07 16:54:59" itemprop="dateModified" datetime="2025-02-07T16:54:59+08:00">2025-02-07</time>
   </span>
   <span id="2025/02/06/kafka/" class="item leancloud_visitors" data-flag-title="Kafka Notes" title="阅读次数">
       <span class="icon">
@@ -330,7 +366,7 @@ d. 并接收来自 broker 的应答，应答 ack=0 表示接收到数据不等�
   <div class="panels">
     <div class="inner">
       <div class="contents panel pjax" data-title="文章目录">
-          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#kafka"><span class="toc-number">1.</span> <span class="toc-text"> kafka</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">1.1.</span> <span class="toc-text"> 是什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81"><span class="toc-number">1.2.</span> <span class="toc-text"> 为什么需要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2"><span class="toc-number">1.3.</span> <span class="toc-text"> 集群部署</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%A4%E4%BA%92%E5%91%BD%E4%BB%A4"><span class="toc-number">1.4.</span> <span class="toc-text"> 交互命令</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#kafka-%E7%9A%84%E6%9E%B6%E6%9E%84"><span class="toc-number">2.</span> <span class="toc-text"> kafka 的架构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#kafka-%E7%94%9F%E4%BA%A7%E8%80%85"><span class="toc-number">3.</span> <span class="toc-text"> kafka 生产者</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85%E5%8F%91%E9%80%81%E6%B6%88%E6%81%AF%E5%8E%9F%E7%90%86"><span class="toc-number">3.1.</span> <span class="toc-text"> 生产者发送消息原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85%E5%8F%91%E9%80%81%E6%97%B6%E7%9A%84%E5%88%86%E5%8C%BA%E7%AD%96%E7%95%A5"><span class="toc-number">3.2.</span> <span class="toc-text"> 生产者发送时的分区策略</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85%E5%8F%91%E9%80%81%E5%90%9E%E5%90%90%E9%87%8F%E6%8F%90%E5%8D%87%E6%96%B9%E6%B3%95"><span class="toc-number">3.3.</span> <span class="toc-text"> 生产者发送吞吐量提升方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E6%95%B0%E6%8D%AE%E5%8F%AF%E9%9D%A0%E6%80%A7"><span class="toc-number">3.4.</span> <span class="toc-text"> 生产者如何保证数据可靠性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E6%95%B0%E6%8D%AE%E5%8E%BB%E9%87%8D"><span class="toc-number">3.5.</span> <span class="toc-text"> 生产者如何保证数据去重</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%B9%82%E7%AD%89"><span class="toc-number">3.5.1.</span> <span class="toc-text"> 数据幂等</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85%E4%BA%8B%E5%8A%A1"><span class="toc-number">3.5.2.</span> <span class="toc-text"> 生产者事务</span></a></li></ol></li></ol></li></ol>
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#kafka"><span class="toc-number">1.</span> <span class="toc-text"> kafka</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">1.1.</span> <span class="toc-text"> 是什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81"><span class="toc-number">1.2.</span> <span class="toc-text"> 为什么需要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2"><span class="toc-number">1.3.</span> <span class="toc-text"> 集群部署</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%A4%E4%BA%92%E5%91%BD%E4%BB%A4"><span class="toc-number">1.4.</span> <span class="toc-text"> 交互命令</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#kafka-%E7%9A%84%E6%9E%B6%E6%9E%84"><span class="toc-number">2.</span> <span class="toc-text"> kafka 的架构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#kafka-%E7%94%9F%E4%BA%A7%E8%80%85"><span class="toc-number">3.</span> <span class="toc-text"> kafka 生产者</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85%E5%8F%91%E9%80%81%E6%B6%88%E6%81%AF%E5%8E%9F%E7%90%86"><span class="toc-number">3.1.</span> <span class="toc-text"> 生产者发送消息原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85%E5%8F%91%E9%80%81%E6%97%B6%E7%9A%84%E5%88%86%E5%8C%BA%E7%AD%96%E7%95%A5"><span class="toc-number">3.2.</span> <span class="toc-text"> 生产者发送时的分区策略</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85%E5%8F%91%E9%80%81%E5%90%9E%E5%90%90%E9%87%8F%E6%8F%90%E5%8D%87%E6%96%B9%E6%B3%95"><span class="toc-number">3.3.</span> <span class="toc-text"> 生产者发送吞吐量提升方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E6%95%B0%E6%8D%AE%E5%8F%AF%E9%9D%A0%E6%80%A7ack%E5%BA%94%E7%AD%94%E7%BA%A7%E5%88%AB"><span class="toc-number">3.4.</span> <span class="toc-text"> 生产者如何保证数据可靠性（ACK 应答级别）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E6%95%B0%E6%8D%AE%E5%8E%BB%E9%87%8D"><span class="toc-number">3.5.</span> <span class="toc-text"> 生产者如何保证数据去重</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%B9%82%E7%AD%89%E6%80%A7"><span class="toc-number">3.5.1.</span> <span class="toc-text"> 数据幂等性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85%E4%BA%8B%E5%8A%A1"><span class="toc-number">3.5.2.</span> <span class="toc-text"> 生产者事务</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#kafka-broker"><span class="toc-number">4.</span> <span class="toc-text"> kafka broker</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#zk%E4%B8%AD%E5%AD%98%E5%82%A8%E7%9A%84kafka%E4%BF%A1%E6%81%AF"><span class="toc-number">4.1.</span> <span class="toc-text"> zk 中存储的 kafka 信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#broker%E4%B8%8Ezk%E5%8D%8F%E8%B0%83%E7%9A%84%E6%80%BB%E4%BD%93%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-number">4.2.</span> <span class="toc-text"> broker 与 zk 协调的总体工作流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#broker%E6%9C%8D%E5%BD%B9%E4%B8%8E%E9%80%80%E5%BD%B9"><span class="toc-number">4.3.</span> <span class="toc-text"> broker 服役与退役</span></a></li></ol></li></ol>
       </div>
       <div class="related panel pjax" data-title="系列文章">
       </div>
