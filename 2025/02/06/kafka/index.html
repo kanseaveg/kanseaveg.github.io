@@ -100,12 +100,12 @@ Kanseaveg's Domain</title>
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://raw.githubusercontent.com/euanpic8888/images/main/20250207002824229.jpg"></li>
+          <li class="item" data-background-image="https://raw.githubusercontent.com/euanpic8888/images/main/20250207002857987.jpg"></li>
           <li class="item" data-background-image="https://raw.githubusercontent.com/euanpic8888/images/main/20250207002332702.jpg"></li>
-          <li class="item" data-background-image="https://raw.githubusercontent.com/euanpic8888/images/main/20250207002336259.jpg"></li>
-          <li class="item" data-background-image="https://raw.githubusercontent.com/euanpic8888/images/main/20250207003048056.jpg"></li>
-          <li class="item" data-background-image="https://raw.githubusercontent.com/euanpic8888/images/main/20250207002159459.jpg"></li>
-          <li class="item" data-background-image="https://raw.githubusercontent.com/euanpic8888/images/main/20250207002232957.jpg"></li>
+          <li class="item" data-background-image="https://raw.githubusercontent.com/euanpic8888/images/main/20250207002317832.jpg"></li>
+          <li class="item" data-background-image="https://raw.githubusercontent.com/euanpic8888/images/main/20250207002208067.jpg"></li>
+          <li class="item" data-background-image="https://raw.githubusercontent.com/euanpic8888/images/main/20250207002432149.jpg"></li>
+          <li class="item" data-background-image="https://raw.githubusercontent.com/euanpic8888/images/main/20250207002340160.jpg"></li>
         </ul>
       </div>
     </header>
@@ -149,154 +149,235 @@ Kanseaveg's Domain</title>
   <div class="body md" itemprop="articleBody">
     
 
-    <h1 id="kafka"><a href="#kafka" class="headerlink" title="kafka"></a>kafka</h1><h2 id="是什么"><a href="#是什么" class="headerlink" title="是什么"></a>是什么</h2><p>Kafka是一种分布式、高吞吐量的分布式发布订阅消息系统</p>
-<h2 id="为什么需要"><a href="#为什么需要" class="headerlink" title="为什么需要"></a>为什么需要</h2><ol>
+    <h1 id="kafka"><a class="markdownIt-Anchor" href="#kafka">#</a> kafka</h1>
+<h2 id="是什么"><a class="markdownIt-Anchor" href="#是什么">#</a> 是什么</h2>
+<p>Kafka 是一种分布式、高吞吐量的分布式发布订阅消息系统</p>
+<h2 id="为什么需要"><a class="markdownIt-Anchor" href="#为什么需要">#</a> 为什么需要</h2>
+<ol>
 <li>缓冲和削峰</li>
 <li>解耦重要业务流程</li>
 <li>异步通信</li>
 </ol>
-<h2 id="集群部署"><a href="#集群部署" class="headerlink" title="集群部署"></a>集群部署</h2><ol>
-<li>下载对应的kafka安装包</li>
-<li>修改config下的server.properties:<br>  a. broker.id<br>  b. log.dirs<br>  c. zookeeper.connect</li>
-<li>在各个机器上启动kafka：bin&#x2F;kafka-sever-start.sh -daemon config&#x2F;server.properties</li>
+<h2 id="集群部署"><a class="markdownIt-Anchor" href="#集群部署">#</a> 集群部署</h2>
+<ol>
+<li>下载对应的 kafka 安装包</li>
+<li>修改 config 下的 server.properties:<br>
+a. <span class="exturl" data-url="aHR0cDovL2Jyb2tlci5pZA==">broker.id</span><br>
+b. log.dirs<br>
+c. zookeeper.connect</li>
+<li>在各个机器上启动 kafka：bin/kafka-sever-start.sh -daemon config/server.properties</li>
 <li>配置集群启停脚本</li>
 </ol>
-<h2 id="交互命令"><a href="#交互命令" class="headerlink" title="交互命令"></a>交互命令</h2><ol>
-<li>kafka-topics.sh –bootstrap-server hadoop102:9092<br>  a. list all topic:  –list<br>  b. create topic: –create –partitions 1 –replication-factor 3 –topic first<br>  c. delete topic: –delete –topic first<br>  d. describe topic: –describe –topic first<br>  e. alter topic: –alter–topic first –partitions 3</li>
-<li>producer&#x2F;consumer –bootstrap-server hadoop102:9092<br>  a. send message: –topic first<br>  b. consume message: –from-beginning –topic first</li>
-</ol>
-<h1 id="kafka-的架构"><a href="#kafka-的架构" class="headerlink" title="kafka 的架构"></a>kafka 的架构</h1><p><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250206184652.png" alt="20250206184652"></p>
+<h2 id="交互命令"><a class="markdownIt-Anchor" href="#交互命令">#</a> 交互命令</h2>
 <ol>
-<li>Producer&#x2F;Consumer: 生产者&#x2F;消费者</li>
+<li><span class="exturl" data-url="aHR0cDovL2thZmthLXRvcGljcy5zaA==">kafka-topics.sh</span> --bootstrap-server hadoop102:9092<br>
+a. list all topic:  --list<br>
+b. create topic: --create --partitions 1 --replication-factor 3 --topic first<br>
+c. delete topic: --delete --topic first<br>
+d. describe topic: --describe --topic first<br>
+e. alter topic: --alter–topic first --partitions 3</li>
+<li>producer/consumer --bootstrap-server hadoop102:9092<br>
+a. send message: --topic first<br>
+b. consume message: --from-beginning --topic first</li>
+</ol>
+<h1 id="kafka-的架构"><a class="markdownIt-Anchor" href="#kafka-的架构">#</a> kafka 的架构</h1>
+<p><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250206184652.png" alt="20250206184652"></p>
+<ol>
+<li>Producer/Consumer: 生产者 / 消费者</li>
 <li>Consumer Group: 消费者组，负责消费来自不同分区的数据，一个分区只能由一个消费者组消费</li>
-<li>Broker: 代理人，一台kafka服务器就是一个broker，一个broker包含多个topic</li>
+<li>Broker: 代理人，一台 kafka 服务器就是一个 broker，一个 broker 包含多个 topic</li>
 <li>Topic: 主题，用于存储数据</li>
-<li>Partition: 分区，一个Topic可以分为多个Partition分区，每个分区内数据有序</li>
-<li>Replica: 副本，每个partition分区都有一个leader副本和多个follower副本</li>
-<li>Zookeeper: 协调器，记录broker服务器的运行状态以及不同分区之间的leader和follower信息</li>
+<li>Partition: 分区，一个 Topic 可以分为多个 Partition 分区，每个分区内数据有序</li>
+<li>Replica: 副本，每个 partition 分区都有一个 leader 副本和多个 follower 副本</li>
+<li>Zookeeper: 协调器，记录 broker 服务器的运行状态以及不同分区之间的 leader 和 follower 信息</li>
 </ol>
-<h1 id="kafka-生产者"><a href="#kafka-生产者" class="headerlink" title="kafka 生产者"></a>kafka 生产者</h1><h2 id="生产者发送消息原理"><a href="#生产者发送消息原理" class="headerlink" title="生产者发送消息原理"></a>生产者发送消息原理</h2><p><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207012841.png" alt="20250207012841"></p>
-<p>发送消息时，会启动main进程和sender进程：</p>
+<h1 id="kafka-生产者"><a class="markdownIt-Anchor" href="#kafka-生产者">#</a> kafka 生产者</h1>
+<h2 id="生产者发送消息原理"><a class="markdownIt-Anchor" href="#生产者发送消息原理">#</a> 生产者发送消息原理</h2>
+<p><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207012841.png" alt="20250207012841"></p>
+<p>发送消息时，会启动 main 进程和 sender 进程：</p>
 <ol>
-<li>main线程负责生产数据：<br>a. 创建Producer对象<br>b. 执行0.send(ProducerRecord)<br>c. 经过1.拦截器进行必要处理<br>d. 利用2.序列化器对消息进行序列化<br>e. 利用3.分区器将消息划分到不同的消息队列中<br>f. kafka使用双端队列（队列大小默认32M，每批次16k），一边塞消息一边发消息</li>
-<li>sender线程负责发送数据<br>a. 从双端队列中拉取数据<br>b. 使用NetworkClient与不同的broker建立连接<br>c. 基于selector将数据发送到不同的分区上（默认只能发送5个未接收ack应答的数据，超时会发送，默认0ms，超batch_size也会发送，默认16k）<br>d. 并接收来自broker的应答，应答ack&#x3D;0表示接收到数据不等落盘直接应答，ack&#x3D;1表示leader收到数据后应答，ack&#x3D;-1&#x2F;all表示leader和isr队列都收到数据后应答</li>
+<li>main 线程负责生产数据：<br>
+a. 创建 Producer 对象<br>
+ b. 执行 0.send (ProducerRecord)<br>
+ c. 经过 1. 拦截器进行必要处理<br>
+ d. 利用 2. 序列化器对消息进行序列化<br>
+ e. 利用 3. 分区器将消息划分到不同的消息队列中<br>
+ f. kafka 使用双端队列（队列大小默认 32M，每批次 16k），一边塞消息一边发消息</li>
+<li>sender 线程负责发送数据<br>
+ a. 从双端队列中拉取数据<br>
+ b. 使用 NetworkClient 与不同的 broker 建立连接<br>
+ c. 基于 selector 将数据发送到不同的分区上（默认只能发送 5 个未接收 ack 应答的数据，超时会发送，默认 0ms，超 batch_size 也会发送，默认 16k）<br>
+d. 并接收来自 broker 的应答，应答 ack=0 表示接收到数据不等落盘直接应答，ack=1 表示 leader 收到数据后应答，ack=-1/all 表示 leader 和 isr 队列都收到数据后应答</li>
 </ol>
-<h2 id="生产者发送时的分区策略"><a href="#生产者发送时的分区策略" class="headerlink" title="生产者发送时的分区策略"></a>生产者发送时的分区策略</h2><p><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207094842.png" alt="20250207094842"><br>默认采用DefaultPartitioner：  实现Partitioner接口</p>
+<h2 id="生产者发送时的分区策略"><a class="markdownIt-Anchor" href="#生产者发送时的分区策略">#</a> 生产者发送时的分区策略</h2>
+<p><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207094842.png" alt="20250207094842"><br>
+ 默认采用 DefaultPartitioner：  实现 Partitioner 接口</p>
 <ol>
 <li>指明了 partition，则使用指明值</li>
-<li>未指明 partition，则使用key的hash%分区值</li>
+<li>未指明 partition，则使用 key 的 hash% 分区值</li>
 <li>未指明 partition 和 key，则使用粘性分区（随机选定一个分区一直用直到满）</li>
 </ol>
-<p>自定义分区，实现Partitioner接口</p>
+<p>自定义分区，实现 Partitioner 接口</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyPartitioner</span> <span class="keyword">implements</span> <span class="title class_">Partitioner</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">partition</span><span class="params">(...)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">msgValue</span> <span class="operator">=</span> value.toString();</span><br><span class="line">        <span class="type">int</span> partition;</span><br><span class="line">        <span class="keyword">if</span> (msgValue.contains(<span class="string">&quot;atguigu&quot;</span>)) partition = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">else</span> partition = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span> partition;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="生产者发送吞吐量提升方法"><a href="#生产者发送吞吐量提升方法" class="headerlink" title="生产者发送吞吐量提升方法"></a>生产者发送吞吐量提升方法</h2><p>即NetworkClient从双端队列中拉取消息的吞吐量，如何提升？</p>
+<h2 id="生产者发送吞吐量提升方法"><a class="markdownIt-Anchor" href="#生产者发送吞吐量提升方法">#</a> 生产者发送吞吐量提升方法</h2>
+<p>即 NetworkClient 从双端队列中拉取消息的吞吐量，如何提升？</p>
 <ol>
-<li>提高拉取批次大小batch.size</li>
-<li>修改等待时间 linger.ms</li>
+<li>提高拉取批次大小 batch.size</li>
+<li>修改等待时间 <span class="exturl" data-url="aHR0cDovL2xpbmdlci5tcw==">linger.ms</span></li>
 <li>修改数据压缩算法 snappy</li>
 <li>修改缓存区大小 recordaccumulator</li>
 </ol>
-<h2 id="生产者如何保证数据可靠性（ACK应答级别）"><a href="#生产者如何保证数据可靠性（ACK应答级别）" class="headerlink" title="生产者如何保证数据可靠性（ACK应答级别）"></a>生产者如何保证数据可靠性（ACK应答级别）</h2><p><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207094948.png" alt="20250207094948"></p>
-<p>producer向集群发送数据，有三种ack级别：</p>
+<h2 id="生产者如何保证数据可靠性ack应答级别"><a class="markdownIt-Anchor" href="#生产者如何保证数据可靠性ack应答级别">#</a> 生产者如何保证数据可靠性（ACK 应答级别）</h2>
+<p><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207094948.png" alt="20250207094948"></p>
+<p>producer 向集群发送数据，有三种 ack 级别：</p>
 <ol>
-<li>对于ack&#x3D;0，leader不等待马上应答，若leader突然挂了，followers都拷贝不到数据，存在丢数风险</li>
-<li>对于ack&#x3D;1，leader收到数据后应答，若leader突然挂了，followers依旧无法拷贝到数据，存在丢数风险</li>
-<li>对于ack&#x3D;-1，leader和followers们收到数据后应答，leader和followers都有数据，若此时一个follower突然挂了，leader无法向发送方发送全部收到的ack，因此：<br>a. kafka设计了一个动态的ISR（in-sync replica set），用来动态维护同步的foller+leader集合（isr: 0,1,2; leader: 0），ack&#x3D;-1负责与ISR列表中的节点进行应答确认<br>b. isr中若一个follower长时间未与leader通信，则被踢出这个ISR列表，默认30s<br>c. isr中若所有的follower都挂了，则退化成ack&#x3D;1，又存在丢数风险<br>d. 因此，数据完全可靠条件 &#x3D; ack&#x3D;-1 + 分区副本数&gt;&#x3D;2 + ISR里最小副本数&gt;&#x3D;2<blockquote>
-<p>分区副本数&gt;&#x3D;2：即isr中至少存在一个leader副本和follower副本<br>ISR里最小副本数&gt;&#x3D;2: 亦如此，此条件用于约束follower也在isr中<br>若在发送确认ack之前，leader突然挂了，则需要重新选举leader，此时新选举的leader应该如何处理重复数据？</p>
+<li>对于 ack=0，leader 不等待马上应答，若 leader 突然挂了，followers 都拷贝不到数据，存在丢数风险</li>
+<li>对于 ack=1，leader 收到数据后应答，若 leader 突然挂了，followers 依旧无法拷贝到数据，存在丢数风险</li>
+<li>对于 ack=-1，leader 和 followers 们收到数据后应答，leader 和 followers 都有数据，若此时一个 follower 突然挂了，leader 无法向发送方发送全部收到的 ack，因此：<br>
+a. kafka 设计了一个动态的 ISR（in-sync replica set），用来动态维护同步的 foller+leader 集合（isr: 0,1,2; leader: 0），ack=-1 负责与 ISR 列表中的节点进行应答确认<br>
+ b. isr 中若一个 follower 长时间未与 leader 通信，则被踢出这个 ISR 列表，默认 30s<br>
+c. isr 中若所有的 follower 都挂了，则退化成 ack=1，又存在丢数风险<br>
+ d. 因此，数据完全可靠条件 = ack=-1 + 分区副本数 &gt;=2 + ISR 里最小副本数 &gt;=2
+<blockquote>
+<p>分区副本数 &gt;=2：即 isr 中至少存在一个 leader 副本和 follower 副本<br>
+ ISR 里最小副本数 &gt;=2: 亦如此，此条件用于约束 follower 也在 isr 中<br>
+若在发送确认 ack 之前，leader 突然挂了，则需要重新选举 leader，此时新选举的 leader 应该如何处理重复数据？</p>
 </blockquote>
 </li>
 </ol>
-<h2 id="生产者如何保证数据去重"><a href="#生产者如何保证数据去重" class="headerlink" title="生产者如何保证数据去重"></a>生产者如何保证数据去重</h2><h3 id="数据幂等性"><a href="#数据幂等性" class="headerlink" title="数据幂等性"></a>数据幂等性</h3><p>数据传递语义<br>● 至少一次：ack&#x3D;-1 + 分区副本数&gt;&#x3D;2 + ISR应答最小副本数&gt;&#x3D;2   &#x3D;&gt; 会重复，但保证数据不丢<br>● 最多一次：ack&#x3D;0                                         &#x3D;&gt; 不会重复，但会丢数据<br>● 精确一次：ack&#x3D;-1 + 幂等性                               &#x3D;&gt; 引入幂等性和事务，从而保证数据不丢也不重复<br>  ○ 即无论接受到多少重复数据，broker只持久化一条，根据key值&lt;ProducerId, Partition, SeqNumber&gt;判断是否重复，且只能保证单分区单会话内不重复，默认开启幂等性</p>
-<h3 id="生产者事务"><a href="#生产者事务" class="headerlink" title="生产者事务"></a>生产者事务</h3><p>由于幂等性只能保证单分区单会话内不重复，因此需要引入事务，从而保证跨分区跨会话不重复，只能使用事务确保</p>
+<h2 id="生产者如何保证数据去重"><a class="markdownIt-Anchor" href="#生产者如何保证数据去重">#</a> 生产者如何保证数据去重</h2>
+<h3 id="数据幂等性"><a class="markdownIt-Anchor" href="#数据幂等性">#</a> 数据幂等性</h3>
+<p>数据传递语义<br>
+● 至少一次：ack=-1 + 分区副本数 &gt;=2 + ISR 应答最小副本数 &gt;=2   =&gt; 会重复，但保证数据不丢<br>
+● 最多一次：ack=0                                         =&gt; 不会重复，但会丢数据<br>
+● 精确一次：ack=-1 + 幂等性                               =&gt; 引入幂等性和事务，从而保证数据不丢也不重复<br>
+○ 即无论接受到多少重复数据，broker 只持久化一条，根据 key 值 &lt;ProducerId, Partition, SeqNumber&gt; 判断是否重复，且只能保证单分区单会话内不重复，默认开启幂等性</p>
+<h3 id="生产者事务"><a class="markdownIt-Anchor" href="#生产者事务">#</a> 生产者事务</h3>
+<p>由于幂等性只能保证单分区单会话内不重复，因此需要引入事务，从而保证跨分区跨会话不重复，只能使用事务确保</p>
 <p><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207145445.png" alt="20250207145445"></p>
 <ol>
-<li>每个broker上都有  事务协调器， 事务信息特殊主题，  分区副本leader</li>
-<li>在使用事务前，Producer先自定义一个transaction.id</li>
-<li>事务划分根据transaction.id的hashcode%50计算出事务使用哪儿个分区，对应分区的leader副本所在的broker的事务协调器就是此次事务的话事人</li>
-<li>提交事务时，producer向协调器请求ProducerId，并将数据发送到分区副本leader对应的topic中，并向协调器发送commit请求</li>
-<li>commit请求的消息会持久化到事务信息特殊主题中，成功之后会给topic发送commit请求，判断数据真正写入到topic中</li>
+<li>每个 broker 上都有  事务协调器， 事务信息特殊主题，  分区副本 leader</li>
+<li>在使用事务前，<span class="exturl" data-url="aHR0cDovL3huLS1Qcm9kdWNlcnRyYW5zYWN0aW9uLW42NzNhaHpwdGk1NmN4bjJkeWY2bS5pZA==">Producer 先自定义一个 transaction.id</span></li>
+<li>事务划分根据 transaction.id 的 hashcode%50 计算出事务使用哪儿个分区，对应分区的 leader 副本所在的 broker 的事务协调器就是此次事务的话事人</li>
+<li>提交事务时，producer 向协调器请求 ProducerId，并将数据发送到分区副本 leader 对应的 topic 中，并向协调器发送 commit 请求</li>
+<li>commit 请求的消息会持久化到事务信息特殊主题中，成功之后会给 topic 发送 commit 请求，判断数据真正写入到 topic 中</li>
 </ol>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 3. 创建 Kafka 生产者（配置事务支持所需的属性）</span></span><br><span class="line">  KafkaProducer&lt;String, String&gt; kafkaProducer = <span class="keyword">new</span> <span class="title class_">KafkaProducer</span>&lt;&gt;(properties);</span><br><span class="line">  properties.put(ProducerConfig.TRANSACTIONAL_ID_CONFIG, <span class="string">&quot;transaction_id_0&quot;</span>); <span class="comment">// 设置事务 id（必须），事务 id 任意起名</span></span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">      kafkaProducer.initTransactions(); <span class="comment">// 初始化事务（必须先于任何事务操作调用）</span></span><br><span class="line">      kafkaProducer.beginTransaction();  <span class="comment">// 开启一个新事务</span></span><br><span class="line">      <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123; <span class="comment">// 4. 批量发送消息（在事务中）</span></span><br><span class="line">          <span class="comment">// 构建消息记录（主题，消息内容）</span></span><br><span class="line">          ProducerRecord&lt;String, String&gt; record = <span class="keyword">new</span> <span class="title class_">ProducerRecord</span>&lt;&gt;(<span class="string">&quot;first&quot;</span>, <span class="string">&quot;atguigu &quot;</span> + i);</span><br><span class="line">          kafkaProducer.send(record);   <span class="comment">// 异步发送消息（可添加回调函数处理发送结果）</span></span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">// int i = 1 / 0;  // 模拟异常（测试事务回滚时可取消注释）</span></span><br><span class="line">      kafkaProducer.commitTransaction(); <span class="comment">// 提交事务（只有当所有消息成功发送时才会执行）</span></span><br><span class="line">  &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">      kafkaProducer.abortTransaction();</span><br><span class="line">      System.err.println(<span class="string">&quot;Transaction aborted: &quot;</span> + e.getMessage());    <span class="comment">// 发生异常时终止事务（自动回滚未提交的消息）</span></span><br><span class="line">  &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">      kafkaProducer.close();    <span class="comment">// 5. 确保最终关闭生产者（会等待所有未完成操作完成）</span></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="kafka-broker"><a href="#kafka-broker" class="headerlink" title="kafka broker"></a>kafka broker</h1><p>在kafka中如何存储数据的，以及如何和zk沟通的</p>
-<h2 id="kafka-broker工作流程"><a href="#kafka-broker工作流程" class="headerlink" title="kafka broker工作流程"></a>kafka broker工作流程</h2><h3 id="zk中存储的kafka信息"><a href="#zk中存储的kafka信息" class="headerlink" title="zk中存储的kafka信息"></a>zk中存储的kafka信息</h3><p><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207162920.png" alt="20250207162920"></p>
+<h1 id="kafka-broker"><a class="markdownIt-Anchor" href="#kafka-broker">#</a> kafka broker</h1>
+<p>在 kafka 中如何存储数据的，以及如何和 zk 沟通的</p>
+<h2 id="kafka-broker工作流程"><a class="markdownIt-Anchor" href="#kafka-broker工作流程">#</a> kafka broker 工作流程</h2>
+<h3 id="zk中存储的kafka信息"><a class="markdownIt-Anchor" href="#zk中存储的kafka信息">#</a> zk 中存储的 kafka 信息</h3>
+<p><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207162920.png" alt="20250207162920"></p>
 <ol>
 <li>broker_ids [0,1,2] 有哪儿些服务器</li>
-<li>leader_id  {“leader”:1,”isr”:[0,1,2]} 谁是leader</li>
-<li>controller {“候选leader”: 0} 在leader挂了之后，成为接任leader候选之一</li>
+<li>leader_id  {“leader”:1,“isr”:[0,1,2]} 谁是 leader</li>
+<li>controller {“候选 leader”: 0} 在 leader 挂了之后，成为接任 leader 候选之一</li>
 </ol>
-<h3 id="broker与zk协调的总体工作流程"><a href="#broker与zk协调的总体工作流程" class="headerlink" title="broker与zk协调的总体工作流程"></a>broker与zk协调的总体工作流程</h3><p><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207163609.png" alt="20250207163609"></p>
+<h3 id="broker与zk协调的总体工作流程"><a class="markdownIt-Anchor" href="#broker与zk协调的总体工作流程">#</a> broker 与 zk 协调的总体工作流程</h3>
+<p><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207163609.png" alt="20250207163609"></p>
 <ol>
-<li>三个节点向zk注册</li>
-<li>哪儿台broker的controller先向zk注册，哪儿台broker的controller说了算</li>
-<li>controller按照选举规则选举出leader（以isr节点存活为前提，优先选举ar中排在前面的），并将信息同步到zk中</li>
-<li>其他节点的controller从zk同步相关信息</li>
-<li>假设选举出来的leader挂了，zk的controller会监听到变化，执行重新选举流程</li>
+<li>三个节点向 zk 注册</li>
+<li>哪儿台 broker 的 controller 先向 zk 注册，哪儿台 broker 的 controller 说了算</li>
+<li>controller 按照选举规则选举出 leader（以 isr 节点存活为前提，优先选举 ar 中排在前面的），并将信息同步到 zk 中</li>
+<li>其他节点的 controller 从 zk 同步相关信息</li>
+<li>假设选举出来的 leader 挂了，zk 的 controller 会监听到变化，执行重新选举流程</li>
 </ol>
-<h2 id="节点服役与退役"><a href="#节点服役与退役" class="headerlink" title="节点服役与退役"></a>节点服役与退役</h2><h3 id="broker服役与退役"><a href="#broker服役与退役" class="headerlink" title="broker服役与退役"></a>broker服役与退役</h3><p>其实服役与退役的本质就是副本的迁移，若服役则将已有副本迁移到新节点，若退役则将已有副本迁移到其他节点</p>
+<h2 id="节点服役与退役"><a class="markdownIt-Anchor" href="#节点服役与退役">#</a> 节点服役与退役</h2>
+<h3 id="broker服役与退役"><a class="markdownIt-Anchor" href="#broker服役与退役">#</a> broker 服役与退役</h3>
+<p>其实服役与退役的本质就是副本的迁移，若服役则将已有副本迁移到新节点，若退役则将已有副本迁移到其他节点</p>
 <p><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207164554.png" alt="20250207164554"></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">服役 hadoop105</span></span><br><span class="line">bin/kafka-server-start.sh -daemon ./config/server.properties # hadoop105</span><br><span class="line"></span><br><span class="line">vim topics-to-move.json   # hadoop102</span><br><span class="line">&#123;&quot;topics&quot;: [&#123;&quot;topic&quot;: &quot;first&quot;&#125;]&#125;</span><br><span class="line"></span><br><span class="line">bin/kafka-reassign-partitions.sh --bootstrap-server hadoop102:9092 --topics-to-move-json-file topics-to-move.json --broker-list &quot;0,1,2,3&quot; --generate # hadoop102</span><br><span class="line"></span><br><span class="line">vim increase-replication-factor.json # hadoop102,将上面返回的json内容Proposed partition reassignment configuration填入</span><br><span class="line">&#123;&quot;version&quot;:1,&quot;partitions&quot;:[&#123;&quot;topic&quot;:&quot;first&quot;,&quot;partition&quot;:0,&quot;replic</span><br><span class="line">as&quot;:[2,3,0],&quot;log_dirs&quot;:[&quot;any&quot;,&quot;any&quot;,&quot;any&quot;]&#125;,&#123;&quot;topic&quot;:&quot;first&quot;,&quot;par</span><br><span class="line">tition&quot;:1,&quot;replicas&quot;:[3,0,1],&quot;log_dirs&quot;:[&quot;any&quot;,&quot;any&quot;,&quot;any&quot;]&#125;,&#123;&quot;to</span><br><span class="line">pic&quot;:&quot;first&quot;,&quot;partition&quot;:2,&quot;replicas&quot;:[0,1,2],&quot;log_dirs&quot;:[&quot;any&quot;,&quot;</span><br><span class="line">any&quot;,&quot;any&quot;]&#125;]&#125;</span><br><span class="line"></span><br><span class="line">bin/kafka-reassign-partitions.sh --reassignment-json-file increase-replication-factor.json --execute # hadoop102，执行迁移</span><br><span class="line"></span><br><span class="line">bin/kafka-reassign-partitions.sh --bootstrap-server hadoop102:9092 --reassignment-json-file increase-replication-factor.json --execute # hadoop102，验证</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">退役 hadoop105</span></span><br><span class="line">vim topics-to-move.json # hadoop105</span><br><span class="line">&#123;&quot;topics&quot;: [&#123;&quot;topic&quot;: &quot;first&quot;&#125;], &quot;version&quot;: 1&#125;</span><br><span class="line"></span><br><span class="line">bin/kafka-reassign-partitions.sh --bootstrap-server hadoop102:9092 --topics-to-move-json-file topics-to-move.json --broker-list &quot;0,1,2&quot; --generate # hadoop102</span><br><span class="line"></span><br><span class="line">vim increase-replication-factor.json # hadoop102,同上，将返回的json内容填入</span><br><span class="line"></span><br><span class="line">bin/kafka-reassign-partitions.sh --bootstrap-server hadoop102:9092 --reassignment-json-file increase-replication-factor.json --execute # hadoop102，执行迁移</span><br><span class="line"></span><br><span class="line">bin/kafka-reassign-partitions.sh --bootstrap-server hadoop102:9092 --reassignment-json-file increase-replication-factor.json --verify # hadoop102，验证</span><br><span class="line"></span><br><span class="line">bin/kafka-server-stop.sh # hadoop105，退役</span><br></pre></td></tr></table></figure>
-
-
-<h3 id="章节小结"><a href="#章节小结" class="headerlink" title="章节小结"></a>章节小结</h3><p><span class="exturl" data-url="aHR0cHM6Ly93d3cuYmlsaWJpbGkuY29tL3ZpZGVvL0JWMXZyNHkxNjc3az9zcG1faWRfZnJvbT0zMzMuNzg4LnBsYXllci5zd2l0Y2gmdmRfc291cmNlPTE3YTUzOTgwODY0NTVmN2YxZDAwN2RmMzgyZWFiMzk1JnA9Mjk=">章节小结</span></p>
-<h2 id="kafka-副本"><a href="#kafka-副本" class="headerlink" title="kafka 副本"></a>kafka 副本</h2><p>kafka所有的副本叫做AR（Assigned Replicas），AR &#x3D; ISR + OSR，从ISR中踢出去的就放到OSR里面</p>
-<h3 id="leader选举流程（演示）"><a href="#leader选举流程（演示）" class="headerlink" title="leader选举流程（演示）"></a>leader选举流程（演示）</h3><p><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207171519.png" alt="20250207171519"></p>
+<h3 id="章节小结"><a class="markdownIt-Anchor" href="#章节小结">#</a> 章节小结</h3>
+<p><span class="exturl" data-url="aHR0cHM6Ly93d3cuYmlsaWJpbGkuY29tL3ZpZGVvL0JWMXZyNHkxNjc3az9zcG1faWRfZnJvbT0zMzMuNzg4LnBsYXllci5zd2l0Y2gmYW1wO3ZkX3NvdXJjZT0xN2E1Mzk4MDg2NDU1ZjdmMWQwMDdkZjM4MmVhYjM5NSZhbXA7cD0yOQ==">章节小结</span></p>
+<h2 id="kafka-副本"><a class="markdownIt-Anchor" href="#kafka-副本">#</a> kafka 副本</h2>
+<p>kafka 所有的副本叫做 AR（Assigned Replicas），AR = ISR + OSR，从 ISR 中踢出去的就放到 OSR 里面</p>
+<h3 id="leader选举流程演示"><a class="markdownIt-Anchor" href="#leader选举流程演示">#</a> leader 选举流程（演示）</h3>
+<p><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207171519.png" alt="20250207171519"></p>
 <p><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207171913.png" alt="20250207171913"></p>
-<h3 id="follower故障处理（演示）"><a href="#follower故障处理（演示）" class="headerlink" title="follower故障处理（演示）"></a>follower故障处理（演示）</h3><p><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207172116.png" alt="20250207172116"></p>
-<p>follower故障：<br><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207172245.png" alt="20250207172245"></p>
-<p>follower归队：（向高水位靠齐）<br><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207172349.png" alt="20250207172349"></p>
-<h3 id="leader故障处理（演示）"><a href="#leader故障处理（演示）" class="headerlink" title="leader故障处理（演示）"></a>leader故障处理（演示）</h3><p>leader挂了：<br><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207172445.png" alt="20250207172445"></p>
-<p>新leader上位：（所有follower向leader低水位靠齐）<br><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207172550.png" alt="20250207172550"></p>
-<h2 id="kafka-文件存储"><a href="#kafka-文件存储" class="headerlink" title="kafka 文件存储"></a>kafka 文件存储</h2><h3 id="文件存储机制"><a href="#文件存储机制" class="headerlink" title="文件存储机制"></a>文件存储机制</h3><p><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207181456.png" alt="20250207181456"></p>
+<h3 id="follower故障处理演示"><a class="markdownIt-Anchor" href="#follower故障处理演示">#</a> follower 故障处理（演示）</h3>
+<p><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207172116.png" alt="20250207172116"></p>
+<p>follower 故障：<br>
+<img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207172245.png" alt="20250207172245"></p>
+<p>follower 归队：（向高水位靠齐）<br>
+<img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207172349.png" alt="20250207172349"></p>
+<h3 id="leader故障处理演示"><a class="markdownIt-Anchor" href="#leader故障处理演示">#</a> leader 故障处理（演示）</h3>
+<p>leader 挂了：<br>
+<img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207172445.png" alt="20250207172445"></p>
+<p>新 leader 上位：（所有 follower 向 leader 低水位靠齐）<br>
+<img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207172550.png" alt="20250207172550"></p>
+<h2 id="kafka-文件存储"><a class="markdownIt-Anchor" href="#kafka-文件存储">#</a> kafka 文件存储</h2>
+<h3 id="文件存储机制"><a class="markdownIt-Anchor" href="#文件存储机制">#</a> 文件存储机制</h3>
+<p><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207181456.png" alt="20250207181456"></p>
 <p><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207181925.png" alt="20250207181925"></p>
-<p>kafka的索引是稀疏索引，每存储4kb的文件，才会往index中记录一条索引</p>
-<h3 id="文件清理"><a href="#文件清理" class="headerlink" title="文件清理"></a>文件清理</h3><p><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207182451.png" alt="20250207182451"></p>
+<p>kafka 的索引是稀疏索引，每存储 4kb 的文件，才会往 index 中记录一条索引</p>
+<h3 id="文件清理"><a class="markdownIt-Anchor" href="#文件清理">#</a> 文件清理</h3>
+<p><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207182451.png" alt="20250207182451"></p>
 <p><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207182505.png" alt="20250207182505"></p>
 <p><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207182515.png" alt="20250207182515"></p>
-<h2 id="kafka如何实现高效读写"><a href="#kafka如何实现高效读写" class="headerlink" title="kafka如何实现高效读写"></a>kafka如何实现高效读写</h2><ol>
-<li>kafka本身是分布式集群，可以采用分区技术，并行度高</li>
+<h2 id="kafka如何实现高效读写"><a class="markdownIt-Anchor" href="#kafka如何实现高效读写">#</a> kafka 如何实现高效读写</h2>
+<ol>
+<li>kafka 本身是分布式集群，可以采用分区技术，并行度高</li>
 <li>读数据采用稀疏索引，可以快速定位要消费的数据</li>
 <li>顺序写磁盘，日志一直追加写到文件末端</li>
-<li>采用页缓存 + 零拷贝技术 （封装了OS底层的页缓存技术，消息无需落盘至应用层就被拷贝走了，即零拷贝）<br><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207183042.png" alt="20250207183042"></li>
+<li>采用页缓存 + 零拷贝技术 （封装了 OS 底层的页缓存技术，消息无需落盘至应用层就被拷贝走了，即零拷贝）<br>
+<img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207183042.png" alt="20250207183042"></li>
 </ol>
-<h1 id="kafka消费者"><a href="#kafka消费者" class="headerlink" title="kafka消费者"></a>kafka消费者</h1><h2 id="消费方式"><a href="#消费方式" class="headerlink" title="消费方式"></a>消费方式</h2><p><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207183521.png" alt="20250207183521"></p>
-<h2 id="消费总体流程"><a href="#消费总体流程" class="headerlink" title="消费总体流程"></a>消费总体流程</h2><p><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207183800.png" alt="20250207183800"></p>
-<p>offset维护在系统主题中保存，老版本是维护在zk中，但是由于消费者需要与zk大量通信，新版本迁移到broker上的特殊主题当中</p>
-<h2 id="消费者组原理"><a href="#消费者组原理" class="headerlink" title="消费者组原理"></a>消费者组原理</h2><h3 id="消费者组初始化流程"><a href="#消费者组初始化流程" class="headerlink" title="消费者组初始化流程"></a>消费者组初始化流程</h3><p><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207185811.png" alt="20250207185811"></p>
+<h1 id="kafka消费者"><a class="markdownIt-Anchor" href="#kafka消费者">#</a> kafka 消费者</h1>
+<h2 id="消费方式"><a class="markdownIt-Anchor" href="#消费方式">#</a> 消费方式</h2>
+<p><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207183521.png" alt="20250207183521"></p>
+<h2 id="消费总体流程"><a class="markdownIt-Anchor" href="#消费总体流程">#</a> 消费总体流程</h2>
+<p><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207183800.png" alt="20250207183800"></p>
+<p>offset 维护在系统主题中保存，老版本是维护在 zk 中，但是由于消费者需要与 zk 大量通信，新版本迁移到 broker 上的特殊主题当中</p>
+<h2 id="消费者组原理"><a class="markdownIt-Anchor" href="#消费者组原理">#</a> 消费者组原理</h2>
+<h3 id="消费者组初始化流程"><a class="markdownIt-Anchor" href="#消费者组初始化流程">#</a> 消费者组初始化流程</h3>
+<p><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207185811.png" alt="20250207185811"></p>
 <ol>
-<li>首先确认消费者组的coordinator，即哪个broker上的coordinator负责管理该消费者组，由groupid的hashcode%50计算得出</li>
-<li>消费者组中的消费者向coordinator发送joinGroup请求，coordinator选举消费者组的一个cosumer作为消费leader</li>
-<li>coordinator将消费的topic概况发送给consumer leader</li>
-<li>consumer leader负责制定当前消费者组的消费方案并上报给coordinator</li>
-<li>coordinator将消费方案下发给各个消费者</li>
-<li>消费者组中的消费者与coordinator进行rebalance，若超时消费或者心跳丢失就触发消费者组之间的再平衡</li>
+<li>首先确认消费者组的 coordinator，即哪个 broker 上的 coordinator 负责管理该消费者组，由 groupid 的 hashcode%50 计算得出</li>
+<li>消费者组中的消费者向 coordinator 发送 joinGroup 请求，coordinator 选举消费者组的一个 cosumer 作为消费 leader</li>
+<li>coordinator 将消费的 topic 概况发送给 consumer leader</li>
+<li>consumer leader 负责制定当前消费者组的消费方案并上报给 coordinator</li>
+<li>coordinator 将消费方案下发给各个消费者</li>
+<li>消费者组中的消费者与 coordinator 进行 rebalance，若超时消费或者心跳丢失就触发消费者组之间的再平衡</li>
 </ol>
-<h3 id="消费者组详细消费流程"><a href="#消费者组详细消费流程" class="headerlink" title="消费者组详细消费流程"></a>消费者组详细消费流程</h3><p><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207190338.png" alt="20250207190338"><br>consumer启动consumerNetworkClient，并按照批次大小或时间间隔向broker发送拉取请求，并基于回调函数拉取数据，然后经过反序列化、拦截器、最终处理数据</p>
-<h3 id="消费者分区分配再平衡"><a href="#消费者分区分配再平衡" class="headerlink" title="消费者分区分配再平衡"></a>消费者分区分配再平衡</h3><p><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207193718.png" alt="20250207193718"></p>
+<h3 id="消费者组详细消费流程"><a class="markdownIt-Anchor" href="#消费者组详细消费流程">#</a> 消费者组详细消费流程</h3>
+<p><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207190338.png" alt="20250207190338"><br>
+consumer 启动 consumerNetworkClient，并按照批次大小或时间间隔向 broker 发送拉取请求，并基于回调函数拉取数据，然后经过反序列化、拦截器、最终处理数据</p>
+<h3 id="消费者分区分配再平衡"><a class="markdownIt-Anchor" href="#消费者分区分配再平衡">#</a> 消费者分区分配再平衡</h3>
+<p><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207193718.png" alt="20250207193718"></p>
 <ol>
-<li><p>range分配策略针对一个topic而言<br><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207193830.png" alt="20250207193830"></p>
+<li>
+<p>range 分配策略针对一个 topic 而言<br>
+<img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207193830.png" alt="20250207193830"></p>
 </li>
-<li><p>roundrobin分配策略针对所有topic而言<br><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207194314.png" alt="20250207194314"></p>
+<li>
+<p>roundrobin 分配策略针对所有 topic 而言<br>
+<img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207194314.png" alt="20250207194314"></p>
 </li>
-<li><p>sticky分配策略： 尽量均匀又随机<br><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207194607.png" alt="20250207194607"></p>
+<li>
+<p>sticky 分配策略： 尽量均匀又随机<br>
+<img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207194607.png" alt="20250207194607"></p>
 </li>
 </ol>
-<h3 id="offset位置"><a href="#offset位置" class="headerlink" title="offset位置"></a>offset位置</h3><p><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207194919.png" alt="20250207194919"></p>
-<p>__consumer_offsets 主题里面采用 key 和 value 的方式存储数据。key 是 group.id+topic+分区号，value 就是当前 offset 的值。<br>每隔一段时间，kafka 内部会对这个 topic 进行compact压缩存储，也就是每个 group.id+topic+分区号就保留最新数据。</p>
+<h3 id="offset位置"><a class="markdownIt-Anchor" href="#offset位置">#</a> offset 位置</h3>
+<p><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207194919.png" alt="20250207194919"></p>
+<p>__consumer_offsets 主题里面采用 key 和 value 的方式存储数据。key 是 group.id+topic + 分区号，value 就是当前 offset 的值。<br>
+每隔一段时间，kafka 内部会对这个 topic 进行 compact 压缩存储，也就是每个 group.id+topic + 分区号就保留最新数据。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/kafka-console-consumer.sh --topic __consumer_offsets --bootstrap-server hadoop102:9092 --consumer.config config/consumer.properties --formatter &quot;kafka.coordinator.group.GroupMetadataManager\$OffsetsMessageForm atter&quot; --from-beginning</span><br></pre></td></tr></table></figure>
-<p>为了使我们能够专注于自己的业务逻辑，kafka提供了自动提交offset的功能。<br><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207195252.png" alt="20250207195252"></p>
-<p>手动提交：<br><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207195440.png" alt="20250207195440"></p>
-<p>指定offset位置：</p>
+<p>为了使我们能够专注于自己的业务逻辑，kafka 提供了自动提交 offset 的功能。<br>
+<img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207195252.png" alt="20250207195252"></p>
+<p>手动提交：<br>
+<img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207195440.png" alt="20250207195440"></p>
+<p>指定 offset 位置：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Set&lt;TopicPartition&gt; assignment= <span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;&gt;();</span><br><span class="line"><span class="keyword">while</span> (assignment.size() == <span class="number">0</span>) &#123;</span><br><span class="line">  kafkaConsumer.poll(Duration.ofSeconds(<span class="number">1</span>)); <span class="comment">// 获取消费者分区分配信息（有了分区分配信息才能开始消费）</span></span><br><span class="line">  assignment = kafkaConsumer.assignment();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span> (TopicPartition tp: assignment) &#123;  <span class="comment">// 遍历所有分区，并指定 offset 从 1700 的位置开始消费</span></span><br><span class="line">  kafkaConsumer.seek(tp, <span class="number">1700</span>); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>指定时间消费：将时间转化成对应offset</p>
+<p>指定时间消费：将时间转化成对应 offset</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Set&lt;TopicPartition&gt; assignment = <span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;&gt;();</span><br><span class="line"><span class="keyword">while</span> (assignment.size() == <span class="number">0</span>) &#123;</span><br><span class="line">  kafkaConsumer.poll(Duration.ofSeconds(<span class="number">1</span>)); <span class="comment">// 获取消费者分区分配信息（有了分区分配信息才能开始消费）</span></span><br><span class="line">  assignment = kafkaConsumer.assignment();</span><br><span class="line">&#125;</span><br><span class="line">HashMap&lt;TopicPartition, Long&gt; timestampToSearch = <span class="keyword">new</span></span><br><span class="line"><span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line"><span class="keyword">for</span> (TopicPartition topicPartition : assignment) &#123;  <span class="comment">// 封装集合存储，每个分区对应一天前的数据</span></span><br><span class="line">  timestampToSearch.put(topicPartition,</span><br><span class="line">  System.currentTimeMillis() - <span class="number">1</span> * <span class="number">24</span> * <span class="number">3600</span> * <span class="number">1000</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Map&lt;TopicPartition, OffsetAndTimestamp&gt; offsets = kafkaConsumer.offsetsForTimes(timestampToSearch); <span class="comment">// 获取从 1 天前开始消费的每个分区的 offset</span></span><br><span class="line"><span class="keyword">for</span> (TopicPartition topicPartition : assignment) &#123;   <span class="comment">// 遍历每个分区，对每个分区设置消费时间。</span></span><br><span class="line">  <span class="type">OffsetAndTimestamp</span> <span class="variable">offsetAndTimestamp</span> <span class="operator">=</span> offsets.get(topicPartition);  <span class="comment">// 根据时间指定开始消费的位置</span></span><br><span class="line">  <span class="keyword">if</span> (offsetAndTimestamp != <span class="literal">null</span>)&#123;</span><br><span class="line">    kafkaConsumer.seek(topicPartition, offsetAndTimestamp.offset());</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="消费者事务"><a href="#消费者事务" class="headerlink" title="消费者事务"></a>消费者事务</h3><p><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207200506.png" alt="20250207200506"><br>为解决重复消费和漏消费的问题，采用消费者事务<br><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207200654.png" alt="20250207200654"></p>
-<h3 id="章节小结-1"><a href="#章节小结-1" class="headerlink" title="章节小结"></a>章节小结</h3><p><span class="exturl" data-url="aHR0cHM6Ly93d3cuYmlsaWJpbGkuY29tL3ZpZGVvL0JWMXZyNHkxNjc3az9zcG1faWRfZnJvbT0zMzMuNzg4LnBsYXllci5zd2l0Y2gmdmRfc291cmNlPTE3YTUzOTgwODY0NTVmN2YxZDAwN2RmMzgyZWFiMzk1JnA9NTk=">章节小结</span></p>
+<h3 id="消费者事务"><a class="markdownIt-Anchor" href="#消费者事务">#</a> 消费者事务</h3>
+<p><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207200506.png" alt="20250207200506"><br>
+ 为解决重复消费和漏消费的问题，采用消费者事务<br>
+<img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/images20250207200654.png" alt="20250207200654"></p>
+<h3 id="章节小结-2"><a class="markdownIt-Anchor" href="#章节小结-2">#</a> 章节小结</h3>
+<p><span class="exturl" data-url="aHR0cHM6Ly93d3cuYmlsaWJpbGkuY29tL3ZpZGVvL0JWMXZyNHkxNjc3az9zcG1faWRfZnJvbT0zMzMuNzg4LnBsYXllci5zd2l0Y2gmYW1wO3ZkX3NvdXJjZT0xN2E1Mzk4MDg2NDU1ZjdmMWQwMDdkZjM4MmVhYjM5NSZhbXA7cD01OQ==">章节小结</span></p>
 
   </div>
 
@@ -361,6 +442,14 @@ Kanseaveg's Domain</title>
     <div class="item left">
     </div>
     <div class="item right">
+      
+
+  <a href="/2025/02/08/hadoop/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;euanpic8888&#x2F;images&#x2F;main&#x2F;20250207002321613.jpg" title="hadoop">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> </span>
+  <h3>hadoop</h3>
+  </a>
+
     </div>
 </div>
 
@@ -377,7 +466,7 @@ Kanseaveg's Domain</title>
   <div class="panels">
     <div class="inner">
       <div class="contents panel pjax" data-title="文章目录">
-          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#kafka"><span class="toc-number">1.</span> <span class="toc-text">kafka</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">1.1.</span> <span class="toc-text">是什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81"><span class="toc-number">1.2.</span> <span class="toc-text">为什么需要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2"><span class="toc-number">1.3.</span> <span class="toc-text">集群部署</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%A4%E4%BA%92%E5%91%BD%E4%BB%A4"><span class="toc-number">1.4.</span> <span class="toc-text">交互命令</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#kafka-%E7%9A%84%E6%9E%B6%E6%9E%84"><span class="toc-number">2.</span> <span class="toc-text">kafka 的架构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#kafka-%E7%94%9F%E4%BA%A7%E8%80%85"><span class="toc-number">3.</span> <span class="toc-text">kafka 生产者</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85%E5%8F%91%E9%80%81%E6%B6%88%E6%81%AF%E5%8E%9F%E7%90%86"><span class="toc-number">3.1.</span> <span class="toc-text">生产者发送消息原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85%E5%8F%91%E9%80%81%E6%97%B6%E7%9A%84%E5%88%86%E5%8C%BA%E7%AD%96%E7%95%A5"><span class="toc-number">3.2.</span> <span class="toc-text">生产者发送时的分区策略</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85%E5%8F%91%E9%80%81%E5%90%9E%E5%90%90%E9%87%8F%E6%8F%90%E5%8D%87%E6%96%B9%E6%B3%95"><span class="toc-number">3.3.</span> <span class="toc-text">生产者发送吞吐量提升方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E6%95%B0%E6%8D%AE%E5%8F%AF%E9%9D%A0%E6%80%A7%EF%BC%88ACK%E5%BA%94%E7%AD%94%E7%BA%A7%E5%88%AB%EF%BC%89"><span class="toc-number">3.4.</span> <span class="toc-text">生产者如何保证数据可靠性（ACK应答级别）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E6%95%B0%E6%8D%AE%E5%8E%BB%E9%87%8D"><span class="toc-number">3.5.</span> <span class="toc-text">生产者如何保证数据去重</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%B9%82%E7%AD%89%E6%80%A7"><span class="toc-number">3.5.1.</span> <span class="toc-text">数据幂等性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85%E4%BA%8B%E5%8A%A1"><span class="toc-number">3.5.2.</span> <span class="toc-text">生产者事务</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#kafka-broker"><span class="toc-number">4.</span> <span class="toc-text">kafka broker</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#kafka-broker%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-number">4.1.</span> <span class="toc-text">kafka broker工作流程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#zk%E4%B8%AD%E5%AD%98%E5%82%A8%E7%9A%84kafka%E4%BF%A1%E6%81%AF"><span class="toc-number">4.1.1.</span> <span class="toc-text">zk中存储的kafka信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#broker%E4%B8%8Ezk%E5%8D%8F%E8%B0%83%E7%9A%84%E6%80%BB%E4%BD%93%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-number">4.1.2.</span> <span class="toc-text">broker与zk协调的总体工作流程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8A%82%E7%82%B9%E6%9C%8D%E5%BD%B9%E4%B8%8E%E9%80%80%E5%BD%B9"><span class="toc-number">4.2.</span> <span class="toc-text">节点服役与退役</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#broker%E6%9C%8D%E5%BD%B9%E4%B8%8E%E9%80%80%E5%BD%B9"><span class="toc-number">4.2.1.</span> <span class="toc-text">broker服役与退役</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AB%A0%E8%8A%82%E5%B0%8F%E7%BB%93"><span class="toc-number">4.2.2.</span> <span class="toc-text">章节小结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#kafka-%E5%89%AF%E6%9C%AC"><span class="toc-number">4.3.</span> <span class="toc-text">kafka 副本</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#leader%E9%80%89%E4%B8%BE%E6%B5%81%E7%A8%8B%EF%BC%88%E6%BC%94%E7%A4%BA%EF%BC%89"><span class="toc-number">4.3.1.</span> <span class="toc-text">leader选举流程（演示）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#follower%E6%95%85%E9%9A%9C%E5%A4%84%E7%90%86%EF%BC%88%E6%BC%94%E7%A4%BA%EF%BC%89"><span class="toc-number">4.3.2.</span> <span class="toc-text">follower故障处理（演示）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#leader%E6%95%85%E9%9A%9C%E5%A4%84%E7%90%86%EF%BC%88%E6%BC%94%E7%A4%BA%EF%BC%89"><span class="toc-number">4.3.3.</span> <span class="toc-text">leader故障处理（演示）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#kafka-%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8"><span class="toc-number">4.4.</span> <span class="toc-text">kafka 文件存储</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8%E6%9C%BA%E5%88%B6"><span class="toc-number">4.4.1.</span> <span class="toc-text">文件存储机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E6%B8%85%E7%90%86"><span class="toc-number">4.4.2.</span> <span class="toc-text">文件清理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#kafka%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E9%AB%98%E6%95%88%E8%AF%BB%E5%86%99"><span class="toc-number">4.5.</span> <span class="toc-text">kafka如何实现高效读写</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#kafka%E6%B6%88%E8%B4%B9%E8%80%85"><span class="toc-number">5.</span> <span class="toc-text">kafka消费者</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B6%88%E8%B4%B9%E6%96%B9%E5%BC%8F"><span class="toc-number">5.1.</span> <span class="toc-text">消费方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B6%88%E8%B4%B9%E6%80%BB%E4%BD%93%E6%B5%81%E7%A8%8B"><span class="toc-number">5.2.</span> <span class="toc-text">消费总体流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B6%88%E8%B4%B9%E8%80%85%E7%BB%84%E5%8E%9F%E7%90%86"><span class="toc-number">5.3.</span> <span class="toc-text">消费者组原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E8%B4%B9%E8%80%85%E7%BB%84%E5%88%9D%E5%A7%8B%E5%8C%96%E6%B5%81%E7%A8%8B"><span class="toc-number">5.3.1.</span> <span class="toc-text">消费者组初始化流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E8%B4%B9%E8%80%85%E7%BB%84%E8%AF%A6%E7%BB%86%E6%B6%88%E8%B4%B9%E6%B5%81%E7%A8%8B"><span class="toc-number">5.3.2.</span> <span class="toc-text">消费者组详细消费流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E8%B4%B9%E8%80%85%E5%88%86%E5%8C%BA%E5%88%86%E9%85%8D%E5%86%8D%E5%B9%B3%E8%A1%A1"><span class="toc-number">5.3.3.</span> <span class="toc-text">消费者分区分配再平衡</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#offset%E4%BD%8D%E7%BD%AE"><span class="toc-number">5.3.4.</span> <span class="toc-text">offset位置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E8%B4%B9%E8%80%85%E4%BA%8B%E5%8A%A1"><span class="toc-number">5.3.5.</span> <span class="toc-text">消费者事务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AB%A0%E8%8A%82%E5%B0%8F%E7%BB%93-1"><span class="toc-number">5.3.6.</span> <span class="toc-text">章节小结</span></a></li></ol></li></ol></li></ol>
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#kafka"><span class="toc-number">1.</span> <span class="toc-text"> kafka</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">1.1.</span> <span class="toc-text"> 是什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81"><span class="toc-number">1.2.</span> <span class="toc-text"> 为什么需要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2"><span class="toc-number">1.3.</span> <span class="toc-text"> 集群部署</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%A4%E4%BA%92%E5%91%BD%E4%BB%A4"><span class="toc-number">1.4.</span> <span class="toc-text"> 交互命令</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#kafka-%E7%9A%84%E6%9E%B6%E6%9E%84"><span class="toc-number">2.</span> <span class="toc-text"> kafka 的架构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#kafka-%E7%94%9F%E4%BA%A7%E8%80%85"><span class="toc-number">3.</span> <span class="toc-text"> kafka 生产者</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85%E5%8F%91%E9%80%81%E6%B6%88%E6%81%AF%E5%8E%9F%E7%90%86"><span class="toc-number">3.1.</span> <span class="toc-text"> 生产者发送消息原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85%E5%8F%91%E9%80%81%E6%97%B6%E7%9A%84%E5%88%86%E5%8C%BA%E7%AD%96%E7%95%A5"><span class="toc-number">3.2.</span> <span class="toc-text"> 生产者发送时的分区策略</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85%E5%8F%91%E9%80%81%E5%90%9E%E5%90%90%E9%87%8F%E6%8F%90%E5%8D%87%E6%96%B9%E6%B3%95"><span class="toc-number">3.3.</span> <span class="toc-text"> 生产者发送吞吐量提升方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E6%95%B0%E6%8D%AE%E5%8F%AF%E9%9D%A0%E6%80%A7ack%E5%BA%94%E7%AD%94%E7%BA%A7%E5%88%AB"><span class="toc-number">3.4.</span> <span class="toc-text"> 生产者如何保证数据可靠性（ACK 应答级别）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E6%95%B0%E6%8D%AE%E5%8E%BB%E9%87%8D"><span class="toc-number">3.5.</span> <span class="toc-text"> 生产者如何保证数据去重</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%B9%82%E7%AD%89%E6%80%A7"><span class="toc-number">3.5.1.</span> <span class="toc-text"> 数据幂等性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85%E4%BA%8B%E5%8A%A1"><span class="toc-number">3.5.2.</span> <span class="toc-text"> 生产者事务</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#kafka-broker"><span class="toc-number">4.</span> <span class="toc-text"> kafka broker</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#kafka-broker%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-number">4.1.</span> <span class="toc-text"> kafka broker 工作流程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#zk%E4%B8%AD%E5%AD%98%E5%82%A8%E7%9A%84kafka%E4%BF%A1%E6%81%AF"><span class="toc-number">4.1.1.</span> <span class="toc-text"> zk 中存储的 kafka 信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#broker%E4%B8%8Ezk%E5%8D%8F%E8%B0%83%E7%9A%84%E6%80%BB%E4%BD%93%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-number">4.1.2.</span> <span class="toc-text"> broker 与 zk 协调的总体工作流程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8A%82%E7%82%B9%E6%9C%8D%E5%BD%B9%E4%B8%8E%E9%80%80%E5%BD%B9"><span class="toc-number">4.2.</span> <span class="toc-text"> 节点服役与退役</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#broker%E6%9C%8D%E5%BD%B9%E4%B8%8E%E9%80%80%E5%BD%B9"><span class="toc-number">4.2.1.</span> <span class="toc-text"> broker 服役与退役</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AB%A0%E8%8A%82%E5%B0%8F%E7%BB%93"><span class="toc-number">4.2.2.</span> <span class="toc-text"> 章节小结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#kafka-%E5%89%AF%E6%9C%AC"><span class="toc-number">4.3.</span> <span class="toc-text"> kafka 副本</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#leader%E9%80%89%E4%B8%BE%E6%B5%81%E7%A8%8B%E6%BC%94%E7%A4%BA"><span class="toc-number">4.3.1.</span> <span class="toc-text"> leader 选举流程（演示）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#follower%E6%95%85%E9%9A%9C%E5%A4%84%E7%90%86%E6%BC%94%E7%A4%BA"><span class="toc-number">4.3.2.</span> <span class="toc-text"> follower 故障处理（演示）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#leader%E6%95%85%E9%9A%9C%E5%A4%84%E7%90%86%E6%BC%94%E7%A4%BA"><span class="toc-number">4.3.3.</span> <span class="toc-text"> leader 故障处理（演示）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#kafka-%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8"><span class="toc-number">4.4.</span> <span class="toc-text"> kafka 文件存储</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8%E6%9C%BA%E5%88%B6"><span class="toc-number">4.4.1.</span> <span class="toc-text"> 文件存储机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E6%B8%85%E7%90%86"><span class="toc-number">4.4.2.</span> <span class="toc-text"> 文件清理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#kafka%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E9%AB%98%E6%95%88%E8%AF%BB%E5%86%99"><span class="toc-number">4.5.</span> <span class="toc-text"> kafka 如何实现高效读写</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#kafka%E6%B6%88%E8%B4%B9%E8%80%85"><span class="toc-number">5.</span> <span class="toc-text"> kafka 消费者</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B6%88%E8%B4%B9%E6%96%B9%E5%BC%8F"><span class="toc-number">5.1.</span> <span class="toc-text"> 消费方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B6%88%E8%B4%B9%E6%80%BB%E4%BD%93%E6%B5%81%E7%A8%8B"><span class="toc-number">5.2.</span> <span class="toc-text"> 消费总体流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B6%88%E8%B4%B9%E8%80%85%E7%BB%84%E5%8E%9F%E7%90%86"><span class="toc-number">5.3.</span> <span class="toc-text"> 消费者组原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E8%B4%B9%E8%80%85%E7%BB%84%E5%88%9D%E5%A7%8B%E5%8C%96%E6%B5%81%E7%A8%8B"><span class="toc-number">5.3.1.</span> <span class="toc-text"> 消费者组初始化流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E8%B4%B9%E8%80%85%E7%BB%84%E8%AF%A6%E7%BB%86%E6%B6%88%E8%B4%B9%E6%B5%81%E7%A8%8B"><span class="toc-number">5.3.2.</span> <span class="toc-text"> 消费者组详细消费流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E8%B4%B9%E8%80%85%E5%88%86%E5%8C%BA%E5%88%86%E9%85%8D%E5%86%8D%E5%B9%B3%E8%A1%A1"><span class="toc-number">5.3.3.</span> <span class="toc-text"> 消费者分区分配再平衡</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#offset%E4%BD%8D%E7%BD%AE"><span class="toc-number">5.3.4.</span> <span class="toc-text"> offset 位置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E8%B4%B9%E8%80%85%E4%BA%8B%E5%8A%A1"><span class="toc-number">5.3.5.</span> <span class="toc-text"> 消费者事务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AB%A0%E8%8A%82%E5%B0%8F%E7%BB%93-2"><span class="toc-number">5.3.6.</span> <span class="toc-text"> 章节小结</span></a></li></ol></li></ol></li></ol>
       </div>
       <div class="related panel pjax" data-title="系列文章">
       </div>
@@ -392,7 +481,7 @@ Kanseaveg's Domain</title>
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">1</span>
+        <span class="count">2</span>
         <span class="name">文章</span>
       </a>
     </div>
@@ -465,6 +554,15 @@ Kanseaveg's Domain</title>
 <div class="rpost pjax">
   <h2>随机文章</h2>
   <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2025/02/08/hadoop/" title="hadoop">hadoop</a></span>
+  </li>
+
       
   <li class="item">
     

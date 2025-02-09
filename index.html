@@ -88,12 +88,12 @@
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://raw.githubusercontent.com/euanpic8888/images/main/20250207002141981.jpg"></li>
-          <li class="item" data-background-image="https://raw.githubusercontent.com/euanpic8888/images/main/20250207003104542.jpg"></li>
-          <li class="item" data-background-image="https://raw.githubusercontent.com/euanpic8888/images/main/20250207002951837.jpg"></li>
-          <li class="item" data-background-image="https://raw.githubusercontent.com/euanpic8888/images/main/20250207002727092.jpg"></li>
-          <li class="item" data-background-image="https://raw.githubusercontent.com/euanpic8888/images/main/20250207002758689.jpg"></li>
-          <li class="item" data-background-image="https://raw.githubusercontent.com/euanpic8888/images/main/20250207002340160.jpg"></li>
+          <li class="item" data-background-image="https://raw.githubusercontent.com/euanpic8888/images/main/20250207002539180.jpg"></li>
+          <li class="item" data-background-image="https://raw.githubusercontent.com/euanpic8888/images/main/20250207002700867.jpg"></li>
+          <li class="item" data-background-image="https://raw.githubusercontent.com/euanpic8888/images/main/20250207003101127.jpg"></li>
+          <li class="item" data-background-image="https://raw.githubusercontent.com/euanpic8888/images/main/20250207002557759.jpg"></li>
+          <li class="item" data-background-image="https://raw.githubusercontent.com/euanpic8888/images/main/20250207003005875.jpg"></li>
+          <li class="item" data-background-image="https://raw.githubusercontent.com/euanpic8888/images/main/20250207002306606.jpg"></li>
         </ul>
       </div>
     </header>
@@ -120,7 +120,42 @@
         
 <article class="item">
   <div class="cover">
-    <a href="/2025/02/06/kafka/" itemprop="url" title="Kafka Notes"><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/20250207002418711.jpg"></a>
+    <a href="/2025/02/08/hadoop/" itemprop="url" title="hadoop"><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/20250207003018000.jpg"></a>
+  </div>
+  <div class="info">
+    
+<div class="meta">
+  <span class="item" title="创建时间：2025-02-08 17:35:53">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <time itemprop="dateCreated datePublished" datetime="2025-02-08T17:35:53+08:00">2025-02-08</time>
+  </span>
+</div>
+
+    <h3><a href="/2025/02/08/hadoop/" itemprop="url" title="hadoop">hadoop</a></h3>
+    <div class="excerpt">
+        # 环境部署
+基于 ubuntu 20.04 的 vagrant 环境部署 hadoop 集群环境
+# 1. 安装 Vagrant 和 VirtualBox
+1sudo apt-get install virtualbox vagrant -y
+# 2. 配置 Vagrantfile
+
+首先检查内部网络的配置文件是否存在，若存在，则以配置文件显示的网段为准：
+
+12cat /etc/vbox/networks.conf * 192.168.10.0/24
+说明内部网段为 192.168.10.1，可通过 virtualbox 的网络管理器界面设置
+
+然后配置 Vagrant...
+    </div>
+    <a href="/2025/02/08/hadoop/" itemprop="url" title="hadoop" class="btn">more...</a>
+  </div>
+</article>
+
+        
+<article class="item">
+  <div class="cover">
+    <a href="/2025/02/06/kafka/" itemprop="url" title="Kafka Notes"><img data-src="https://raw.githubusercontent.com/euanpic8888/images/main/20250207002941020.jpg"></a>
   </div>
   <div class="info">
     
@@ -135,20 +170,28 @@
 
     <h3><a href="/2025/02/06/kafka/" itemprop="url" title="Kafka Notes">Kafka Notes</a></h3>
     <div class="excerpt">
-        kafka是什么Kafka是一种分布式、高吞吐量的分布式发布订阅消息系统
-为什么需要
+        # kafka
+# 是什么
+Kafka 是一种分布式、高吞吐量的分布式发布订阅消息系统
+# 为什么需要
+
 缓冲和削峰
 解耦重要业务流程
 异步通信
 
-集群部署
-下载对应的kafka安装包
-修改config下的server.properties: a. broker.id b. log.dirs c. zookeeper.connect
-在各个机器上启动kafka：bin&amp;#x2F;kafka-sever-start.sh -daemon config&amp;#x2F;server.properties
+# 集群部署
+
+下载对应的 kafka 安装包
+修改 config 下的 server.properties:
+a. broker.id
+b. log.dirs
+c. zookeeper.connect
+在各个机器上启动 kafka：bin/kafka-sever-start.sh -daemon config/server.properties
 配置集群启停脚本
 
-交互命令
-kafka-topics.sh –bootstrap-server...
+# 交互命令
+
+kafka-topics.sh...
     </div>
     <a href="/2025/02/06/kafka/" itemprop="url" title="Kafka Notes" class="btn">more...</a>
   </div>
@@ -184,7 +227,7 @@ kafka-topics.sh –bootstrap-server...
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">1</span>
+        <span class="count">2</span>
         <span class="name">文章</span>
       </a>
     </div>
@@ -256,6 +299,15 @@ kafka-topics.sh –bootstrap-server...
 <div class="rpost pjax">
   <h2>随机文章</h2>
   <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+</div>
+
+    <span><a href="/2025/02/08/hadoop/" title="hadoop">hadoop</a></span>
+  </li>
+
       
   <li class="item">
     
